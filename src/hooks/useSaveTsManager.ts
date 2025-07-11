@@ -55,8 +55,8 @@ export const useSaveTsManager = () => {
       console.log('💾 SaveTsManager: Processed timestamps result:', processedTimestamps);
       console.log('💾 SaveTsManager: Number of processed timestamps:', processedTimestamps.length);
       
-      // Create file content
-      const fileContent = processedTimestamps.join('\n');
+      // Create file content - use empty string if no timestamps found
+      const fileContent = processedTimestamps.length > 0 ? processedTimestamps.join('\n') : '';
       console.log('💾 SaveTsManager: File content to write:', fileContent);
       console.log('💾 SaveTsManager: File content length:', fileContent.length);
       

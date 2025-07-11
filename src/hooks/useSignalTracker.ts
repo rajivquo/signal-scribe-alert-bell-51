@@ -62,24 +62,24 @@ export const useSignalTracker = () => {
       if ((window as any).Capacitor && (window as any).Capacitor.isNativePlatform()) {
         if ((window as any).Capacitor.getPlatform() === 'android') {
           console.log('🔴 Android platform detected - attempting to send broadcast intent');
-          console.log('🔴 Broadcast intent action: com.tasker.RING_OFF');
+          console.log('🔴 Broadcast intent action: com.tasker.SOUND_OFF');
           
           // Send broadcast intent using capacitor-android-intents
           await CapacitorIntents.sendBroadcastIntent({
-            action: 'com.tasker.RING_OFF',
+            action: 'com.tasker.SOUND_OFF',
             value: {
               source: 'signal-scribe-app',
               timestamp: Date.now()
             }
           });
           
-          console.log('🔴 Broadcast intent sent successfully: com.tasker.RING_OFF');
+          console.log('🔴 Broadcast intent sent successfully: com.tasker.SOUND_OFF');
         } else {
           console.log('🔴 Not Android platform');
         }
       } else {
         console.log('🔴 Web environment - Not on mobile device');
-        console.log('🔴 For Tasker: Use broadcast intent com.tasker.RING_OFF');
+        console.log('🔴 For Tasker: Use broadcast intent com.tasker.SOUND_OFF');
       }
     } catch (error) {
       console.error('🔴 Error in Ring Off handler:', error);
