@@ -21,6 +21,7 @@ export const useSignalState = () => {
   useEffect(() => {
     const loadedSignals = signalStateManager.getSignals();
     const loadedAntidelay = loadAntidelayFromStorage();
+    const savedText = localStorage.getItem('signals_text') || '';
     
     if (loadedSignals.length > 0) {
       setSavedSignals(loadedSignals);
@@ -28,7 +29,9 @@ export const useSignalState = () => {
     }
     
     setAntidelaySeconds(loadedAntidelay);
+    setSignalsText(savedText);
     console.log('📊 Loaded antidelay from storage:', loadedAntidelay);
+    console.log('📊 Loaded saved text:', savedText);
     
   }, []);
 
@@ -47,7 +50,7 @@ export const useSignalState = () => {
     saveAntidelayToStorage(antidelaySeconds);
   }, [antidelaySeconds]);
 
-  // Save signals handler - with intelligent past/future signal handling (audio-only mode)
+  // Save text handler - just saves raw text to localStorage
   const handleSaveSignals = () => {
     setSaveButtonPressed(true);
     setTimeout(() => setSaveButtonPressed(false), 200);
@@ -68,30 +71,13 @@ export const useSignalState = () => {
     // Reset history index to current (latest)
     setHistoryIndex(-1);
     
-    const signals = parseSignals(signalsText);
-    
-    // Process signals based on whether their time has passed
-    const processedSignals = signals.map(signal => {
-      const timePassed = hasSignalTimePassed(signal, antidelaySeconds);
-      return {
-        ...signal,
-        triggered: timePassed // Mark past signals as triggered, future ones as untriggered
-      };
-    });
-    
-    // Separate for logging
-    const pastSignals = processedSignals.filter(s => s.triggered);
-    const futureSignals = processedSignals.filter(s => !s.triggered);
-    
-    console.log('📊 Saving signals:', {
-      totalSignalsCount: processedSignals.length,
-      pastSignalsCount: pastSignals.length,
-      futureSignalsCount: futureSignals.length,
-      antidelaySeconds
-    });
-    
-    // Update through unified state manager
-    signalStateManager.updateSignals(processedSignals);
+    // Simply save the raw text to localStorage
+    try {
+      localStorage.setItem('signals_text', signalsText);
+      console.log('📊 Text saved to localStorage');
+    } catch (error) {
+      console.error('Failed to save text to localStorage:', error);
+    }
   };
 
 
