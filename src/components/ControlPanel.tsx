@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Save, FileText, PhoneOff, MonitorOff } from 'lucide-react';
+import { Save, FileText, VolumeX, MonitorOff } from 'lucide-react';
 interface ControlPanelProps {
   signalsText: string;
   saveButtonPressed: boolean;
@@ -38,7 +38,7 @@ const ControlPanel = ({
         userSelect: 'none',
         WebkitUserSelect: 'none'
       }} className="h-16 flex flex-col gap-1 transition-transform duration-200 select-none active:scale-95 border border-input bg-white text-black hover:bg-white/90">
-          <PhoneOff className="h-6 w-6" />
+          <VolumeX className="h-6 w-6" />
           <span className="text-xs">Sound Off</span>
         </Button>
 
