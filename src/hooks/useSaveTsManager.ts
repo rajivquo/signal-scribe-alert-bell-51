@@ -17,6 +17,12 @@ export const useSaveTsManager = () => {
     console.log('💾 SaveTsManager: Save Ts button mouse down');
     e.preventDefault();
     e.stopPropagation();
+    
+    // Blur any active element (like text area) to remove focus and prevent keyboard reopening
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    
     setSaveTsButtonPressed(true);
     isLongPressRef.current = false;
     
