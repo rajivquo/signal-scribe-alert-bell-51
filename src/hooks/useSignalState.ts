@@ -50,12 +50,23 @@ export const useSignalState = () => {
     saveAntidelayToStorage(antidelaySeconds);
   }, [antidelaySeconds]);
 
-  // Save text handler - just saves raw text to localStorage
+  // Save text handler - saves text to localStorage or clears if empty
   const handleSaveSignals = () => {
     setSaveButtonPressed(true);
     setTimeout(() => setSaveButtonPressed(false), 200);
     
-    // Add current text to history before saving
+    // If text is empty, clear localStorage and don't add to history
+    if (!signalsText.trim()) {
+      try {
+        localStorage.removeItem('signals_text');
+        console.log('📊 Cleared text from localStorage');
+      } catch (error) {
+        console.error('Failed to clear text from localStorage:', error);
+      }
+      return;
+    }
+    
+    // Add current text to history before saving (only non-empty text)
     setTextHistory(prev => {
       const newHistory = [...prev];
       if (signalsText.trim() && signalsText !== newHistory[newHistory.length - 1]) {

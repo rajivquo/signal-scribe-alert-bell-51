@@ -42,7 +42,7 @@ const ControlPanel = ({
           <span className="text-xs">Sound Off</span>
         </Button>
 
-        <Button onClick={handleSaveClick} variant="secondary" className={`h-16 flex flex-col gap-1 transition-transform duration-200 select-none active:scale-95 border border-input bg-white text-black hover:bg-white/90 ${saveButtonPressed ? 'scale-95' : ''} ${!signalsText.trim() ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={!signalsText.trim()} style={{
+        <Button onClick={handleSaveClick} variant="secondary" className={`h-16 flex flex-col gap-1 transition-transform duration-200 select-none active:scale-95 border border-input bg-white text-black hover:bg-white/90 ${saveButtonPressed ? 'scale-95' : ''}`} style={{
         userSelect: 'none',
         WebkitUserSelect: 'none'
       }}>
