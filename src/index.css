@@ -102,10 +102,6 @@
     overflow: hidden; /* Prevent global scrolling */
     overscroll-behavior: none; /* Prevent overscroll on Android */
   }
-  
-  html.dark {
-    color-scheme: dark;
-  }
 
   body {
     @apply bg-background text-foreground;
